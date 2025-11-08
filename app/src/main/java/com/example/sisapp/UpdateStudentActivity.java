@@ -1,7 +1,11 @@
 package com.example.sisapp;
 
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,6 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.android.material.appbar.MaterialToolbar;
+
+import java.util.concurrent.atomic.AtomicReference;
 
 public class UpdateStudentActivity extends AppCompatActivity {
     EditText etNic;
@@ -37,6 +45,8 @@ public class UpdateStudentActivity extends AppCompatActivity {
             return insets;
         });
 
+
+
         etNic = findViewById(R.id.ecNic);
         firstName = findViewById(R.id.ecFirstName);
         lastName = findViewById(R.id.ecLastName);
@@ -48,21 +58,33 @@ public class UpdateStudentActivity extends AppCompatActivity {
 
         btnUpdate = findViewById(R.id.btnUpdate);
 
+        etNic.setEnabled(false);
+        firstName.setEnabled(false);
+        lastName.setEnabled(false);
+        fullName.setEnabled(false);
+        nameWithInitials.setEnabled(false);
+        addressLine1.setEnabled(false);
+        addressLine2.setEnabled(false);
+        zipCode.setEnabled(false);
+
+        btnUpdate.setVisibility(INVISIBLE);
+
+
         // Get the student ID from the intent
-        Intent intent = getIntent();
-        studentId = intent.getStringExtra("STUDENT_ID");
+        AtomicReference<Intent> intent = new AtomicReference<>(getIntent());
+        studentId = intent.get().getStringExtra("STUDENT_ID");
 
         assert studentId != null;
-        Student student = StudentsList.getStudentById(Integer.parseInt(studentId));
-        if (!(student == null)) {
-            etNic.setText(student.getNic());
-            firstName.setText(student.getFirstName());
-            lastName.setText(student.getLastName());
-            fullName.setText(student.getFullName());
-            nameWithInitials.setText(student.getNameWithInitials());
-            addressLine1.setText(student.getAddressLineOne());
-            addressLine2.setText(student.getAddressLineTwo());
-            zipCode.setText(String.valueOf(student.getZipCode()));
+        AtomicReference<Student> student = new AtomicReference<>(StudentsList.getStudentById(Integer.parseInt(studentId)));
+        if (!(student.get() == null)) {
+            etNic.setText(student.get().getNic());
+            firstName.setText(student.get().getFirstName());
+            lastName.setText(student.get().getLastName());
+            fullName.setText(student.get().getFullName());
+            nameWithInitials.setText(student.get().getNameWithInitials());
+            addressLine1.setText(student.get().getAddressLineOne());
+            addressLine2.setText(student.get().getAddressLineTwo());
+            zipCode.setText(String.valueOf(student.get().getZipCode()));
 
 
         }
@@ -82,5 +104,87 @@ public class UpdateStudentActivity extends AppCompatActivity {
         });
 
 
+        // Setup Material Toolbar
+       MaterialToolbar toolbar = findViewById(R.id.topUpdateAppBar);
+
+        // Handle menu item clicks
+        toolbar.setOnMenuItemClickListener(item -> {
+
+            if (item.getItemId() == R.id.action_refresh) {
+                 student.set(StudentsList.getStudentById(Integer.parseInt(studentId)));
+                if (!(student.get() == null)) {
+                    etNic.setText(student.get().getNic());
+                    firstName.setText(student.get().getFirstName());
+                    lastName.setText(student.get().getLastName());
+                    fullName.setText(student.get().getFullName());
+                    nameWithInitials.setText(student.get().getNameWithInitials());
+                    addressLine1.setText(student.get().getAddressLineOne());
+                    addressLine2.setText(student.get().getAddressLineTwo());
+                    zipCode.setText(String.valueOf(student.get().getZipCode()));
+
+
+                }
+                Toast.makeText(getApplicationContext(), "Refreshed", Toast.LENGTH_SHORT).show();
+                return true;
+            }
+            if (item.getItemId() == R.id.action_delete) {
+                // Show confirmation dialog
+                new androidx.appcompat.app.AlertDialog.Builder(this)
+                        .setTitle("Delete Student")
+                        .setMessage("Are you sure you want to delete this student?")
+                        .setPositiveButton("Yes", (dialog, which) -> {
+                            // Delete student action
+                            boolean deleted = StudentsList.deleteById(Integer.parseInt(studentId));
+                            if(!deleted){
+                                Toast.makeText(getApplicationContext(), "Student not deleted", Toast.LENGTH_SHORT).show();
+                            }else{
+                                Toast.makeText(getApplicationContext(), "Student Deleted", Toast.LENGTH_SHORT).show();
+                            }
+
+                            intent.set(new Intent(UpdateStudentActivity.this, ShowStudentsActivity.class));
+                            startActivity(intent.get());
+                            finish();
+
+
+                        })
+                        .setNegativeButton("Cancel", (dialog, which) -> {
+                            // Do nothing, just dismiss
+                            dialog.dismiss();
+                        })
+                        .show();
+
+
+
+                return true;
+            }
+
+            if (item.getItemId() == R.id.action_enableUpdate){
+                etNic.setEnabled(true);
+                firstName.setEnabled(true);
+                lastName.setEnabled(true);
+                fullName.setEnabled(true);
+                nameWithInitials.setEnabled(true);
+                addressLine1.setEnabled(true);
+                addressLine2.setEnabled(true);
+                zipCode.setEnabled(true);
+
+                btnUpdate.setVisibility(VISIBLE);
+
+                item.setEnabled(false);
+                return true;
+            }
+            return true;
+        });
+
+
+
+
+
+
     }
+
+
+
+
+
 }

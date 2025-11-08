@@ -1,5 +1,7 @@
 package com.example.sisapp;
 
+import static android.view.View.VISIBLE;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -12,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.google.android.material.appbar.MaterialToolbar;
 
 public class CreateStudentActivity extends AppCompatActivity {
     EditText etNic;
@@ -65,10 +69,40 @@ public class CreateStudentActivity extends AppCompatActivity {
             }
         });
 
+        MaterialToolbar toolbar = findViewById(R.id.topAppBar);
+
+        // Handle menu item clicks
+        toolbar.setOnMenuItemClickListener(item -> {
+
+            if (item.getItemId() == R.id.action_clear) {
+                etNic.setText(null);
+                firstName.setText(null);
+                lastName.setText(null);
+                fullName.setText(null);
+                nameWithInitials.setText(null);
+                addressLine1.setText(null);
+                addressLine2.setText(null);
+                zipCode.setText(null);
+
+
+                return true;
+            }
+
+            return true;
+        });
 
 
 
 
 
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        Intent intent = new Intent(this, ShowStudentsActivity.class);
+        startActivity(intent);
+        finish();
     }
 }

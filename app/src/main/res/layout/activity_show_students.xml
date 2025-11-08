@@ -12,7 +12,7 @@
         android:id="@+id/topAppBar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="?android:attr/windowBackground"
         android:title="Students"
         android:titleTextColor="@android:color/white"
         app:menu="@menu/menu_students" />

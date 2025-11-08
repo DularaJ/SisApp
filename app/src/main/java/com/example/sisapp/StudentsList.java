@@ -56,7 +56,13 @@ public class StudentsList {
 
 
     public static boolean deleteById(int id) {
-        return students.removeIf(student -> student.getId() == id);
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getId() == id) {
+                students.remove(i);
+                return true;
+            }
+        }
+        return false;
     }
 
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="MyToolbarMenuTextStyle" parent="ThemeOverlay.AppCompat.Dark">
+        <item name="android:textColor">@android:color/black</item> <!-- Menu item text color -->
+    </style>
+    <style name="MyToolbarIconColor" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="colorControlNormal">@android:color/white</item> <!-- icons color -->
+    </style>
+
+    <!-- Toolbar icon color (including overflow button) -->
+
+</resources>
