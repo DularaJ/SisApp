@@ -13,6 +13,9 @@
         android:theme="@style/Theme.SisApp"
         tools:targetApi="31">
         <activity
+            android:name=".ShowStudentsActivity"
+            android:exported="false" />
+        <activity
             android:name=".Lock"
             android:exported="false" />
         <activity
