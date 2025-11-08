@@ -1,5 +1,6 @@
 package com.example.sisapp;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -27,10 +28,11 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
 
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.firstName.setText(students.get(position).getFirstName());
-        holder.LastName.setText(students.get(position).getLastName());
+        holder.firstName.setText(students.get(position).getFirstName().toString()+ " " + students.get(position).getFirstName().toString());
+        holder.LastName.setText(students.get(position).getAddressLineOne());
 
         holder.itemView.setOnClickListener(v -> {
             Intent intent = new Intent(context, UpdateStudentActivity.class);

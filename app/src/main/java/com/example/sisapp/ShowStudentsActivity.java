@@ -59,6 +59,13 @@ public class ShowStudentsActivity extends AppCompatActivity {
                 finish();
                 return true; // Menu handled
             }
+
+            if (item.getItemId() == R.id.action_change_password) {
+                Intent intent = new Intent(ShowStudentsActivity.this, ChangePassword.class);
+                startActivity(intent);
+                finish();
+                return true; // Menu handled
+            }
             return false;
         });
     }
