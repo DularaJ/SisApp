@@ -111,6 +111,17 @@ The application follows a traditional Android architecture with:
 - Adapters for list handling
 - Custom ViewHolders for efficient view recycling
 
+## User Interfaces
+
+<p align="center">
+  <img src="doc/img/splashScreen.jpg" alt="Splash Screen" title="Splash Screen" width="30%">
+  <img src="doc/img/login.jpg" alt="Login Screen" title="Login Screen" width="30%">
+  <img src="doc/img/ShowStudent.jpg" alt="Show Students Screen" title="Show Students Screen" width="30%">
+  <br>
+  <img src="doc/img/CreateStudent.jpg" alt="Create Student Screen" title="Create Student Screen" width="30%">
+  <img src="doc/img/UpdateStudent.jpg" alt="Update Student Screen" title="Update Student Screen" width="30%">
+</p>
+
 ## Contributing
 Feel free to submit issues and enhancement requests.
 
