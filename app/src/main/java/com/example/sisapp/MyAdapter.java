@@ -31,7 +31,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
     @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.firstName.setText(students.get(position).getFirstName().toString()+ " " + students.get(position).getFirstName().toString());
+        holder.firstName.setText(students.get(position).getFirstName().toString()+ " " + students.get(position).getLastName().toString());
         holder.LastName.setText(students.get(position).getAddressLineOne());
 
         holder.itemView.setOnClickListener(v -> {

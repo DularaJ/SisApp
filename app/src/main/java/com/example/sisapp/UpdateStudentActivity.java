@@ -63,14 +63,6 @@ public class UpdateStudentActivity extends AppCompatActivity {
 
         btnUpdate = findViewById(R.id.btnUpdate);
 
-        etNic.setEnabled(false);
-        firstName.setEnabled(false);
-        lastName.setEnabled(false);
-        fullName.setEnabled(false);
-        nameWithInitials.setEnabled(false);
-        addressLine1.setEnabled(false);
-        addressLine2.setEnabled(false);
-        zipCode.setEnabled(false);
 
         btnUpdate.setVisibility(INVISIBLE);
 
@@ -164,14 +156,6 @@ public class UpdateStudentActivity extends AppCompatActivity {
             }
 
             if (item.getItemId() == R.id.action_enableUpdate){
-                etNic.setEnabled(true);
-                firstName.setEnabled(true);
-                lastName.setEnabled(true);
-                fullName.setEnabled(true);
-                nameWithInitials.setEnabled(true);
-                addressLine1.setEnabled(true);
-                addressLine2.setEnabled(true);
-                zipCode.setEnabled(true);
 
                 btnUpdate.setVisibility(VISIBLE);
 
